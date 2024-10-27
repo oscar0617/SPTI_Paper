@@ -39,18 +39,13 @@ public class ServerCommandLineRunner implements CommandLineRunner {
             @Override
             public void onData(SocketIOClient client, Message data, AckRequest ackRequest) {
                 String room = client.getHandshakeData().getSingleUrlParam("room");
-
                 if (room == null || room.isEmpty()) {
                     System.out.println("No se especificó una sala para el cliente " + client.getSessionId());
                     return;
                 }
-
                 System.out.println("Mensaje recibido en la sala: " + room + " del remitente: " + client.getSessionId() + data.getRemitente());
-
                 client.joinRoom(room);
-
                 server.getRoomOperations(room).sendEvent("nuevo_mensaje", data);
-
                 if (ackRequest.isAckRequested()) {
                     ackRequest.sendAckData("Punto recibido correctamente en la sala " + room);
                 }
