@@ -7,32 +7,30 @@ function Login({ onLogin }) {
     const [errorMessage, setErrorMessage] = useState("");
   
     const handleLogin = async (event) => {
-        event.preventDefault();
-    
-        try {
-            const response = await fetch("http://127.0.0.1:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({
-                    username: username,
-                    password: password,
-                }),
-            });
-    
-            if (response.ok) {
-                setErrorMessage("");
-                onLogin(); 
-            } else if (response.status === 401) {
-                setErrorMessage("Invalid username or password");
-            } else {
-                setErrorMessage("Unexpected error occurred");
-            }
-        } catch (error) {
-            console.error("Error connecting to server:", error);
-            setErrorMessage("Failed to connect to server");
-        }
+      event.preventDefault();
+  
+      try {
+          const response = await fetch(
+              `http://127.0.0.1:8080/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+              {
+                  method: "GET", 
+              }
+          );
+
+          if (response.ok) {
+              setErrorMessage("");
+              console.log(response.json)
+              console.log("a")
+              window.location.href = '/index';
+          } else if (response.status === 401) {
+              setErrorMessage("Invalid username or password");
+          } else {
+              setErrorMessage("Unexpected error occurred");
+          }
+      } catch (error) {
+          console.error("Error connecting to server:", error);
+          setErrorMessage("Failed to connect to server");
+      }
     };
     
     

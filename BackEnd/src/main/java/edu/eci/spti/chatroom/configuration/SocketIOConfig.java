@@ -23,7 +23,7 @@ public class SocketIOConfig {
         config.setHostname(host); 
         config.setPort(port); 
 
-        config.setOrigin("http://localhost:3000");
+        config.setOrigin("*");
 
         return new SocketIOServer(config);
     }

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import io from 'socket.io-client';
 import './styles/socketsCommunication.css';
 
-function App() {
+function AppChat() {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [sala, setSala] = useState('');
@@ -133,6 +133,38 @@ function App() {
     setSocket(newSocket);
   };
 
+  const borrarSala = (nombreSala) => {
+    
+    const salaData = { nombreSala };
+    console.log(JSON.stringify(salaData));
+      fetch("http://127.0.0.1:8080/api/salas/eliminar", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(salaData)
+        
+      })
+      
+      .then(response => {
+        if (response.ok) {
+          console.log(`Sala "${nombreSala}" borrada exitosamente`);
+          setSala(nombreSala);
+          fetchSalasDisponibles();
+          desconectarSala();
+        } else {
+          alert("No estas autenticado");
+        }
+        if (response.error) {
+          console.log("ola")
+        }
+      })
+      .catch(error => {
+        
+        alert("Error en la solicitud de eliminación de sala.");
+      });
+  };
+
   const desconectarSala = () => {
     if (socket) {
       socket.disconnect();
@@ -142,7 +174,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="AppChat">
       <h2>{isConnected ? `Conectado a la sala ${sala}` : 'No conectado'}</h2>
       <div className="container">
         <div className="salas-disponibles">
@@ -152,6 +184,7 @@ function App() {
               <li key={index} className={sala === salaObj.nombreSala ? "sala-seleccionada" : ""}>
                 {salaObj.nombreSala}
                 <button onClick={() => seleccionarSala(salaObj.nombreSala)}>Seleccionar</button>
+                <button onClick={() => borrarSala(salaObj.nombreSala)}>Borrar Sala</button>
               </li>
             ))}
           </ul>
@@ -186,4 +219,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppChat;

@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import MainApp from './MainApp'; // Importa MainApp, que maneja el flujo de login
+import AppChat from './AppChat'; // Importa MainApp, que maneja el flujo de login
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MainApp /> {/* Renderiza MainApp en lugar de BlueprintViewer */}
+    <AppChat /> {/* Renderiza MainApp para gestionar el login */}
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Si deseas empezar a medir el rendimiento de tu aplicación, pasa una función
+// para registrar los resultados (por ejemplo: reportWebVitals(console.log))
+// o envíalos a un endpoint de análisis. Más información: https://bit.ly/CRA-vitals
 reportWebVitals();
