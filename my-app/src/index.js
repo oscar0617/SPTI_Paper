@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import BlueprintViewer from './App';
+import MainApp from './MainApp'; // Importa MainApp, que maneja el flujo de login
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BlueprintViewer />
+    <MainApp /> {/* Renderiza MainApp en lugar de BlueprintViewer */}
   </React.StrictMode>
 );
 

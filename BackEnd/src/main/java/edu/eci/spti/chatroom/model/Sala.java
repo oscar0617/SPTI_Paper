@@ -1,14 +1,12 @@
 package edu.eci.spti.chatroom.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@jakarta.persistence.Entity
 public class Sala implements Serializable {
-    @Id
+    @jakarta.persistence.Id
     private String nombre;
 
     private transient List<Message> mensajes = new ArrayList<>();
