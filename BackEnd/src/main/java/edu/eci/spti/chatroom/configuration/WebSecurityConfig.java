@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-            //.csrf(csrf -> csrf.disable()) 
+            .csrf(csrf -> csrf.disable()) 
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 				.requestMatchers(HttpMethod.DELETE, "/api/salas/eliminar").authenticated()
