@@ -17,7 +17,9 @@ public class SalaService {
     public void newSala(String nombreSala) {
         if (salaRepository.findByNombre(nombreSala) == null) {
             Sala salaNueva = new Sala(nombreSala);
+            System.out.println("Estoy creando");
             salaRepository.save(salaNueva);
+            System.out.println("creada");
         }
     }
 

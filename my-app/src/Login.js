@@ -11,7 +11,7 @@ function Login({ onLogin }) {
   
       try {
           const response = await fetch(
-              `http://127.0.0.1:8080/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+              `http://18.234.126.38:8080/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
               {
                   method: "GET", 
               }
