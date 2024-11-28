@@ -14,6 +14,8 @@ function AppChat() {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ username: '', password: '', salaToDelete: '' });
   const mensajesEndRef = useRef(null);
+  const API_BASE_URL = "localhost";
+
 
   useEffect(() => {
     if (socket) {
@@ -42,7 +44,7 @@ function AppChat() {
   }, [socket]);
 
   const fetchSalasDisponibles = () => {
-    fetch("http://18.234.126.38:8080/api/salas/todas")
+    fetch(`http://${API_BASE_URL}:8080/api/salas/todas`)
       .then(response => response.json())
       .then(data => {
         setSalasDisponibles(data);
@@ -67,7 +69,7 @@ function AppChat() {
       socket.emit('enviar_mensaje', mensajeData);
       setMensaje('');
 
-      fetch(`http://18.234.126.38:8080/api/salas/${sala}/mensaje`, {
+      fetch(`http://${API_BASE_URL}:8080/api/salas/${sala}/mensaje`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -95,7 +97,7 @@ function AppChat() {
     setNombreUsuario(prompt("Ingrese el nombre de usuario:"));
     if (nombreSala) {
       const salaData = { nombreSala };
-      fetch("http://18.234.126.38:8080/api/salas/nueva", {
+      fetch(`http://${API_BASE_URL}:8080/api/salas/nueva`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -105,8 +107,8 @@ function AppChat() {
         .then(response => {
           if (response.ok) {
             console.log(`Sala "${nombreSala}" creada exitosamente`);
-            setSala(nombreSala);
-            const newSocket = io('http://18.234.126.38.63:8085', {
+            setSala(nombreSala); 
+            const newSocket = io(`http://${API_BASE_URL}:8085` , {
               transports: ['websocket'],
               query: { room: nombreSala }
             });
@@ -124,7 +126,7 @@ function AppChat() {
 
   const seleccionarSala = (nombreSala) => {
     setSala(nombreSala);
-    const newSocket = io('http://18.234.126.38:8085', {
+    const newSocket = io(`http://${API_BASE_URL}:8085`, {
       transports: ['websocket'],
       query: { room: nombreSala }
     });
@@ -150,7 +152,7 @@ function AppChat() {
     const salaData = { nombreSala: salaToDelete };
 
     try {
-        const response = await fetch("http://18.234.126.38:8080/api/salas/eliminar", {
+        const response = await fetch(`http://${API_BASE_URL}:8080/api/salas/eliminar`, {
             method: "DELETE",
             headers: new Headers({
                 "Authorization": `Basic ${credentials}`,

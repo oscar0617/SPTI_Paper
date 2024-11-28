@@ -5,13 +5,14 @@ function Login({ onLogin }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const API_BASE_URL = "localhost";
   
     const handleLogin = async (event) => {
       event.preventDefault();
   
       try {
           const response = await fetch(
-              `http://18.234.126.38:8080/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+              `http://${API_BASE_URL}:8080/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
               {
                   method: "GET", 
               }
